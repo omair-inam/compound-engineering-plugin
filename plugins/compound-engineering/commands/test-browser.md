@@ -1,12 +1,12 @@
 ---
-name: playwright-test
-description: Run Playwright browser tests on pages affected by current PR or branch
+name: test-browser
+description: Run browser tests on pages affected by current PR or branch
 argument-hint: "[PR number, branch name, or 'current' for current branch]"
 ---
 
-# Playwright Test Command
+# Browser Test Command
 
-<command_purpose>Run end-to-end browser tests on pages affected by a PR or branch changes using Playwright MCP.</command_purpose>
+<command_purpose>Run end-to-end browser tests on pages affected by a PR or branch changes using agent-browser CLI.</command_purpose>
 
 ## Introduction
 
@@ -22,9 +22,24 @@ This command tests affected pages in a real browser, catching issues that unit t
 
 <requirements>
 - Local development server running (e.g., `bin/dev`, `rails server`)
-- Playwright MCP server connected
+- agent-browser CLI installed
 - Git repository with changes to test
 </requirements>
+
+## Setup
+
+**Check installation:**
+```bash
+command -v agent-browser >/dev/null 2>&1 && echo "Installed" || echo "NOT INSTALLED"
+```
+
+**Install if needed:**
+```bash
+npm install -g agent-browser
+agent-browser install  # Downloads Chromium
+```
+
+See the `agent-browser` skill for detailed usage.
 
 ## Main Tasks
 
@@ -77,9 +92,9 @@ Build a list of URLs to test based on the mapping.
 
 Before testing, verify the local server is accessible:
 
-```
-mcp__playwright__browser_navigate({ url: "http://localhost:3000" })
-mcp__playwright__browser_snapshot({})
+```bash
+agent-browser open http://localhost:3000
+agent-browser snapshot -i
 ```
 
 If server is not running, inform user:
@@ -90,7 +105,7 @@ Please start your development server:
 - Rails: `bin/dev` or `rails server`
 - Node: `npm run dev`
 
-Then run `/playwright-test` again.
+Then run `/test-browser` again.
 ```
 
 </check_server>
@@ -102,26 +117,27 @@ Then run `/playwright-test` again.
 For each affected route:
 
 **Step 1: Navigate and capture snapshot**
-```
-mcp__playwright__browser_navigate({ url: "http://localhost:3000/[route]" })
-mcp__playwright__browser_snapshot({})
+```bash
+agent-browser open "http://localhost:3000/[route]"
+agent-browser snapshot -i
 ```
 
-**Step 2: Check for errors**
-```
-mcp__playwright__browser_console_messages({ level: "error" })
+**Step 2: Check for errors** (use headed mode for console inspection)
+```bash
+agent-browser --headed open "http://localhost:3000/[route]"
 ```
 
 **Step 3: Verify key elements**
+- Use `agent-browser snapshot -i` to get interactive elements with refs
 - Page title/heading present
 - Primary content rendered
 - No error messages visible
 - Forms have expected fields
 
-**Step 4: Test critical interactions (if applicable)**
-```
-mcp__playwright__browser_click({ element: "[description]", ref: "[ref]" })
-mcp__playwright__browser_snapshot({})
+**Step 4: Test critical interactions**
+```bash
+agent-browser click @e1  # Use ref from snapshot
+agent-browser snapshot -i
 ```
 
 </test_pages>
@@ -162,8 +178,7 @@ Did it work correctly?
 When a test fails:
 
 1. **Document the failure:**
-   - Screenshot the error state
-   - Capture console errors
+   - Screenshot the error state: `agent-browser screenshot error.png`
    - Note the exact reproduction steps
 
 2. **Ask user how to proceed:**
@@ -186,7 +201,7 @@ When a test fails:
    - Re-run the failing test
 
 4. **If "Create todo":**
-   - Create `{id}-pending-p1-playwright-{description}.md`
+   - Create `{id}-pending-p1-browser-test-{description}.md`
    - Continue testing
 
 5. **If "Skip":**
@@ -202,7 +217,7 @@ When a test fails:
 After all tests complete, present summary:
 
 ```markdown
-## 🎭 Playwright Test Results
+## Browser Test Results
 
 **Test Scope:** PR #[number] / [branch name]
 **Server:** http://localhost:3000
@@ -211,23 +226,23 @@ After all tests complete, present summary:
 
 | Route | Status | Notes |
 |-------|--------|-------|
-| `/users` | ✅ Pass | |
-| `/settings` | ✅ Pass | |
-| `/dashboard` | ❌ Fail | Console error: [msg] |
-| `/checkout` | ⏭️ Skip | Requires payment credentials |
+| `/users` | Pass | |
+| `/settings` | Pass | |
+| `/dashboard` | Fail | Console error: [msg] |
+| `/checkout` | Skip | Requires payment credentials |
 
 ### Console Errors: [count]
 - [List any errors found]
 
 ### Human Verifications: [count]
-- OAuth flow: ✅ Confirmed
-- Email delivery: ✅ Confirmed
+- OAuth flow: Confirmed
+- Email delivery: Confirmed
 
 ### Failures: [count]
 - `/dashboard` - [issue description]
 
 ### Created Todos: [count]
-- `005-pending-p1-playwright-dashboard-error.md`
+- `005-pending-p1-browser-test-dashboard-error.md`
 
 ### Result: [PASS / FAIL / PARTIAL]
 ```
@@ -238,11 +253,22 @@ After all tests complete, present summary:
 
 ```bash
 # Test current branch changes
-/playwright-test
+/test-browser
 
 # Test specific PR
-/playwright-test 847
+/test-browser 847
 
 # Test specific branch
-/playwright-test feature/new-dashboard
+/test-browser feature/new-dashboard
+```
+
+## Key agent-browser Commands
+
+```bash
+agent-browser open <url>           # Navigate
+agent-browser snapshot -i          # Interactive elements with refs
+agent-browser click @e1            # Click by ref
+agent-browser fill @e1 "text"      # Fill input
+agent-browser screenshot out.png   # Screenshot
+agent-browser --headed open <url>  # Visible browser
 ```
