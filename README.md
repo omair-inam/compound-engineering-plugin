@@ -1,53 +1,47 @@
-# Compound Marketplace
+# Compound Plugins
 
-[![Build Status](https://github.com/EveryInc/compound-engineering-plugin/actions/workflows/ci.yml/badge.svg)](https://github.com/EveryInc/compound-engineering-plugin/actions/workflows/ci.yml)
-[![npm](https://img.shields.io/npm/v/@every-env/compound-plugin)](https://www.npmjs.com/package/@every-env/compound-plugin)
+[![Build Status](https://github.com/omair-inam/compound-engineering-plugin/actions/workflows/ci.yml/badge.svg)](https://github.com/omair-inam/compound-engineering-plugin/actions/workflows/ci.yml)
 
-A Claude Code plugin marketplace featuring the **Compound Engineering Plugin** — tools that make each unit of engineering work easier than the last.
+A Claude Code plugin marketplace featuring focused, modular plugins for compounding engineering workflows.
 
-## Claude Code Install
+> **Fork Note:** This is a streamlined fork of [EveryInc/compound-engineering-plugin](https://github.com/EveryInc/compound-engineering-plugin). The original monolithic plugin (~67 components, ~22k context tokens) has been split into 3 focused plugins (~21 components, ~5-6k tokens) to reduce context overhead. Language-specific reviewers (Rails, Python, TypeScript), Every.co-specific tools, and components overlapping with the [superpowers plugin](https://github.com/anthropics/claude-code-plugins) were removed.
 
-```bash
-/plugin marketplace add https://github.com/EveryInc/compound-engineering-plugin
-/plugin install compound-engineering
-```
-
-## OpenCode + Codex (experimental) Install
-
-This repo includes a Bun/TypeScript CLI that converts Claude Code plugins to OpenCode and Codex.
+## Installation
 
 ```bash
-# convert the compound-engineering plugin into OpenCode format
-bunx @every-env/compound-plugin install compound-engineering --to opencode
+# Add this marketplace
+/plugin marketplace add https://github.com/omair-inam/compound-engineering-plugin
 
-# convert to Codex format
-bunx @every-env/compound-plugin install compound-engineering --to codex
+# Install the core plugin (recommended for most users)
+/plugin install compound-core
+
+# Optional: Install additional plugins as needed
+/plugin install compound-data    # Database/migration tools
+/plugin install compound-design  # UI/Figma design tools
 ```
 
-Local dev:
+## Available Plugins
 
-```bash
-bun run src/index.ts install ./plugins/compound-engineering --to opencode
-```
-
-OpenCode output is written to `~/.opencode` by default, with `opencode.json` at the root and `agents/`, `skills/`, and `plugins/` alongside it.
-Both provider targets are experimental and may change as the formats evolve.
-Codex output is written to `~/.codex/prompts` and `~/.codex/skills`, with each Claude command converted into both a prompt and a skill (the prompt instructs Codex to load the corresponding skill). Generated Codex skill descriptions are truncated to 1024 characters (Codex limit).
+| Plugin | Components | Description |
+|--------|------------|-------------|
+| **compound-core** | 10 agents, 3 commands, 1 skill | Universal compounding engineering tools for code review, research, and workflow automation |
+| **compound-data** | 3 agents | Database migrations and data integrity tools |
+| **compound-design** | 3 agents, 1 skill | UI/Figma design workflow tools |
+| **coding-tutor** | 3 commands, 1 skill | Personalized coding tutorials with spaced repetition |
 
 ## Workflow
 
+The core workflow centers on documenting solved problems to compound knowledge:
+
 ```
-Plan → Work → Review → Compound → Repeat
+Work → Document → Compound → Repeat
 ```
 
 | Command | Purpose |
 |---------|---------|
-| `/workflows:plan` | Turn feature ideas into detailed implementation plans |
-| `/workflows:work` | Execute plans with worktrees and task tracking |
-| `/workflows:review` | Multi-agent code review before merging |
-| `/workflows:compound` | Document learnings to make future work easier |
-
-Each cycle compounds: plans inform future plans, reviews catch more issues, patterns get documented.
+| `/workflows:compound` | Document solved problems to compound team knowledge |
+| `/deepen-plan` | Enhance plans with parallel research agents |
+| `/changelog` | Create engaging changelogs for recent merges |
 
 ## Philosophy
 
@@ -55,14 +49,47 @@ Each cycle compounds: plans inform future plans, reviews catch more issues, patt
 
 Traditional development accumulates technical debt. Every feature adds complexity. The codebase becomes harder to work with over time.
 
-Compound engineering inverts this. 80% is in planning and review, 20% is in execution:
-- Plan thoroughly before writing code
+Compound engineering inverts this:
 - Review to catch issues and capture learnings
 - Codify knowledge so it's reusable
 - Keep quality high so future changes are easy
 
+## Plugin Details
+
+### compound-core
+
+Universal tools that work across any codebase.
+
+**Review Agents:** architecture-strategist, code-simplicity-reviewer, pattern-recognition-specialist, performance-oracle, security-sentinel
+
+**Research Agents:** best-practices-researcher, framework-docs-researcher, git-history-analyzer
+
+**Workflow Agents:** bug-reproduction-validator, spec-flow-analyzer
+
+**Skill:** compound-docs (capture solved problems as categorized documentation)
+
+[Full reference →](plugins/compound-core/README.md)
+
+### compound-data
+
+Tools for safe database operations.
+
+**Agents:** data-integrity-guardian, data-migration-expert, deployment-verification-agent
+
+[Full reference →](plugins/compound-data/README.md)
+
+### compound-design
+
+Tools for UI/Figma design workflows.
+
+**Agents:** design-implementation-reviewer, design-iterator, figma-design-sync
+
+**Skill:** frontend-design (create production-grade frontend interfaces)
+
+[Full reference →](plugins/compound-design/README.md)
+
 ## Learn More
 
-- [Full component reference](plugins/compound-engineering/README.md) - all agents, commands, skills
 - [Compound engineering: how Every codes with agents](https://every.to/chain-of-thought/compound-engineering-how-every-codes-with-agents)
 - [The story behind compounding engineering](https://every.to/source-code/my-ai-had-already-fixed-the-code-before-i-saw-it)
+- [Original plugin (upstream)](https://github.com/EveryInc/compound-engineering-plugin)
