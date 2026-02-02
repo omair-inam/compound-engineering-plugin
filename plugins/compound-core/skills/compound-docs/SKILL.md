@@ -70,7 +70,6 @@ Extract from conversation history:
 
 **Environment details:**
 
-- Rails version
 - Stage (0-6 or post-implementation)
 - OS version
 - File/line references
@@ -290,7 +289,7 @@ What's next?
 User selects this when:
 - System made this mistake multiple times across different modules
 - Solution is non-obvious but must be followed every time
-- Foundational requirement (Rails, Rails API, threading, etc.)
+- Foundational requirement (framework core, API design, threading, etc.)
 
 Action:
 1. Extract pattern from the documentation
@@ -465,7 +464,7 @@ Documentation is successful when ALL of the following are true:
    module: Brief System
    date: 2025-11-10
    problem_type: performance_issue
-   component: rails_model
+   component: data_model
    symptoms:
      - "N+1 query when loading email threads"
      - "Brief generation taking >5 seconds"
