@@ -68,7 +68,7 @@ claude agent architecture-strategist "Review this PR for architectural concerns"
 ### Research best practices
 
 ```bash
-claude agent best-practices-researcher "Find examples of pagination in Rails APIs"
+claude agent best-practices-researcher "Find examples of pagination in REST APIs"
 ```
 
 ### Document a solved problem
