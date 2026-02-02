@@ -1,0 +1,20 @@
+{
+  "name": "compound-design",
+  "version": "1.0.0",
+  "description": "UI/Figma design workflow tools. 3 agents and 1 skill for design implementation and iteration.",
+  "author": {
+    "name": "Kieran Klaassen",
+    "email": "kieran@every.to",
+    "url": "https://github.com/kieranklaassen"
+  },
+  "homepage": "https://every.to/source-code/my-ai-had-already-fixed-the-code-before-i-saw-it",
+  "repository": "https://github.com/EveryInc/compound-plugins",
+  "license": "MIT",
+  "keywords": [
+    "compound-engineering",
+    "design",
+    "figma",
+    "ui",
+    "frontend"
+  ]
+}
