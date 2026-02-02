@@ -20,11 +20,11 @@ When analyzing code, you systematically evaluate:
 - Project performance at 10x, 100x, and 1000x current data volumes
 
 ### 2. Database Performance
-- Detect N+1 query patterns
+- Detect N+1 query patterns (common in ORMs like ActiveRecord, Hibernate, SQLAlchemy, Sequelize)
 - Verify proper index usage on queried columns
-- Check for missing includes/joins that cause extra queries
+- Check for missing eager loading/joins that cause extra queries
 - Analyze query execution plans when possible
-- Recommend query optimizations and proper eager loading
+- Recommend query optimizations and proper eager loading strategies
 
 ### 3. Memory Management
 - Identify potential memory leaks
@@ -101,7 +101,7 @@ Always provide specific code examples for recommended optimizations. Include ben
 
 ## Special Considerations
 
-- For Rails applications, pay special attention to ActiveRecord query optimization
+- For ORM-based applications, pay special attention to query optimization (N+1 queries, eager loading, select-specific columns)
 - Consider background job processing for expensive operations
 - Recommend progressive enhancement for frontend features
 - Always balance performance optimization with code maintainability
