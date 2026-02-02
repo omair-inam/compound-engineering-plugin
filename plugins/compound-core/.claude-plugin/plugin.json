@@ -1,0 +1,19 @@
+{
+  "name": "compound-core",
+  "version": "1.0.0",
+  "description": "Universal compounding engineering tools. 10 agents, 3 commands, 1 skill for code review, research, and workflow automation.",
+  "author": {
+    "name": "Kieran Klaassen",
+    "email": "kieran@every.to",
+    "url": "https://github.com/kieranklaassen"
+  },
+  "homepage": "https://every.to/source-code/my-ai-had-already-fixed-the-code-before-i-saw-it",
+  "repository": "https://github.com/EveryInc/compound-plugins",
+  "license": "MIT",
+  "keywords": [
+    "compound-engineering",
+    "code-review",
+    "workflow-automation",
+    "knowledge-management"
+  ]
+}
