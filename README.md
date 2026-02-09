@@ -4,7 +4,7 @@
 
 A Claude Code plugin marketplace featuring focused, modular plugins for compounding engineering workflows.
 
-> **Fork Note:** This is a streamlined fork of [EveryInc/compound-engineering-plugin](https://github.com/EveryInc/compound-engineering-plugin). The original monolithic plugin (~67 components, ~22k context tokens) has been split into 3 focused plugins (~21 components, ~5-6k tokens) to reduce context overhead. Language-specific reviewers (Rails, Python, TypeScript), Every.co-specific tools, and components overlapping with the [superpowers plugin](https://github.com/anthropics/claude-code-plugins) were removed.
+> **Fork Note:** This is a streamlined fork of [EveryInc/compound-engineering-plugin](https://github.com/EveryInc/compound-engineering-plugin). The original monolithic plugin (~67 components, ~22k context tokens) has been split into 3 focused plugins (~21 components, ~5-6k tokens) to reduce context overhead. Language-specific reviewers (Rails, Python, TypeScript), Every.co-specific tools, and components overlapping with the [superpowers plugin](https://github.com/anthropics/claude-code-plugins) were removed. All remaining content has been generalized to be framework-agnostic, replacing Rails/Ruby-specific terminology with multi-ecosystem examples spanning Java/Spring, Python, Angular, and Node.js.
 
 ## Installation
 
